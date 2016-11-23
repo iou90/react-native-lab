@@ -94,13 +94,6 @@
 			remoteGlobalIDString = 83CBBA2E1A601D0E00E9B192;
 			remoteInfo = React;
 		};
-		371A50881DE41B01002AC8DD /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A0A75B280E404D038198E440 /* RCTAliyunOSS.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 00CAEE4E1DC05BFC003B3B1F;
-			remoteInfo = RCTAliyunOSS;
-		};
 		371A508D1DE41B01002AC8DD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 00C302BB1ABCB91800DB3ED1 /* RCTImage.xcodeproj */;
@@ -157,6 +150,13 @@
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = RCTVideo;
 		};
+		371A51591DE54D87002AC8DD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3B333B6634B8444FB7F7F1C3 /* RCTAliyunOSS.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 00CAEE4E1DC05BFC003B3B1F;
+			remoteInfo = RCTAliyunOSS;
+		};
 		78C398B81ACF4ADC00677621 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */;
@@ -196,11 +196,11 @@
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		371A50A91DE41B2B002AC8DD /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		371A50AB1DE41EC3002AC8DD /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
+		3B333B6634B8444FB7F7F1C3 /* RCTAliyunOSS.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTAliyunOSS.xcodeproj; path = "../node_modules/react-native-aliyun-oss/ios/RCTAliyunOSS.xcodeproj"; sourceTree = "<group>"; };
 		53E8D8A4137C48CA87EC9322 /* libRCTAliyunOSS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTAliyunOSS.a; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		92791272196B4F9EA282CFBB /* libRNFS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFS.a; sourceTree = "<group>"; };
-		A0A75B280E404D038198E440 /* RCTAliyunOSS.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTAliyunOSS.xcodeproj; path = "../node_modules/react-native-aliyun-oss/ios/RCTAliyunOSS.xcodeproj"; sourceTree = "<group>"; };
 		BAF94D293B724171B762C9D0 /* libRCTVideo.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTVideo.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -338,14 +338,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		371A50841DE41AFF002AC8DD /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				371A50891DE41B01002AC8DD /* libRCTAliyunOSS.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		371A50A81DE41B2B002AC8DD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -359,6 +351,14 @@
 			isa = PBXGroup;
 			children = (
 				371A50FC1DE44058002AC8DD /* libRCTVideo.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		371A51551DE54D87002AC8DD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				371A515A1DE54D87002AC8DD /* libRCTAliyunOSS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -385,8 +385,8 @@
 				832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */,
 				00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */,
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
-				A0A75B280E404D038198E440 /* RCTAliyunOSS.xcodeproj */,
 				10A4FE9F574941199C66EB9D /* RCTVideo.xcodeproj */,
+				3B333B6634B8444FB7F7F1C3 /* RCTAliyunOSS.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -493,8 +493,8 @@
 					ProjectRef = 00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */;
 				},
 				{
-					ProductGroup = 371A50841DE41AFF002AC8DD /* Products */;
-					ProjectRef = A0A75B280E404D038198E440 /* RCTAliyunOSS.xcodeproj */;
+					ProductGroup = 371A51551DE54D87002AC8DD /* Products */;
+					ProjectRef = 3B333B6634B8444FB7F7F1C3 /* RCTAliyunOSS.xcodeproj */;
 				},
 				{
 					ProductGroup = 00C302B61ABCB90400DB3ED1 /* Products */;
@@ -602,13 +602,6 @@
 			remoteRef = 146834031AC3E56700842450 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		371A50891DE41B01002AC8DD /* libRCTAliyunOSS.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRCTAliyunOSS.a;
-			remoteRef = 371A50881DE41B01002AC8DD /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		371A508E1DE41B01002AC8DD /* libRCTImage-tvOS.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -663,6 +656,13 @@
 			fileType = archive.ar;
 			path = libRCTVideo.a;
 			remoteRef = 371A50FB1DE44058002AC8DD /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		371A515A1DE54D87002AC8DD /* libRCTAliyunOSS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTAliyunOSS.a;
+			remoteRef = 371A51591DE54D87002AC8DD /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		78C398B91ACF4ADC00677621 /* libRCTLinking.a */ = {
@@ -812,6 +812,7 @@
 					"$(SRCROOT)/../node_modules/react-native-aliyun-oss/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 					"$(SRCROOT)/../node_modules/react-native-video",
+					"$(SRCROOT)/../node_modules/react-native-aliyun-oss/ios/**",
 				);
 				INFOPLIST_FILE = lab/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -837,6 +838,7 @@
 					"$(SRCROOT)/../node_modules/react-native-aliyun-oss/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 					"$(SRCROOT)/../node_modules/react-native-video",
+					"$(SRCROOT)/../node_modules/react-native-aliyun-oss/ios/**",
 				);
 				INFOPLIST_FILE = lab/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -891,6 +893,7 @@
 					"$(SRCROOT)/../node_modules/react-native-aliyun-oss/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 					"$(SRCROOT)/../node_modules/react-native-video",
+					"$(SRCROOT)/../node_modules/react-native-aliyun-oss/ios/**",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -934,6 +937,7 @@
 					"$(SRCROOT)/../node_modules/react-native-aliyun-oss/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 					"$(SRCROOT)/../node_modules/react-native-video",
+					"$(SRCROOT)/../node_modules/react-native-aliyun-oss/ios/**",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
