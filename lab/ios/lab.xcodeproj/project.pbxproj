@@ -23,7 +23,6 @@
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		291384A32160445FA563CE1C /* libRCTVideo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BAF94D293B724171B762C9D0 /* libRCTVideo.a */; };
-		2D1BFA35726443068CAFE9A6 /* libRNFS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 92791272196B4F9EA282CFBB /* libRNFS.a */; };
 		371A50AA1DE41B2B002AC8DD /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 371A50A91DE41B2B002AC8DD /* SystemConfiguration.framework */; };
 		371A50AC1DE41EC3002AC8DD /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 371A50AB1DE41EC3002AC8DD /* libresolv.tbd */; };
 		7AE8893CFFB3451EA52FF4EE /* libRCTAliyunOSS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 53E8D8A4137C48CA87EC9322 /* libRCTAliyunOSS.a */; };
@@ -200,7 +199,6 @@
 		53E8D8A4137C48CA87EC9322 /* libRCTAliyunOSS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTAliyunOSS.a; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
-		92791272196B4F9EA282CFBB /* libRNFS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFS.a; sourceTree = "<group>"; };
 		BAF94D293B724171B762C9D0 /* libRCTVideo.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTVideo.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -230,7 +228,6 @@
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				7AE8893CFFB3451EA52FF4EE /* libRCTAliyunOSS.a in Frameworks */,
-				2D1BFA35726443068CAFE9A6 /* libRNFS.a in Frameworks */,
 				291384A32160445FA563CE1C /* libRCTVideo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -473,6 +470,9 @@
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
+					};
+					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = TD3TSAF5U2;
 					};
 				};
 			};
@@ -805,6 +805,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
+				DEVELOPMENT_TEAM = TD3TSAF5U2;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -831,6 +832,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = TD3TSAF5U2;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
