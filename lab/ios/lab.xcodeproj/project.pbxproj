@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -27,6 +26,7 @@
 		371A50AC1DE41EC3002AC8DD /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 371A50AB1DE41EC3002AC8DD /* libresolv.tbd */; };
 		7AE8893CFFB3451EA52FF4EE /* libRCTAliyunOSS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 53E8D8A4137C48CA87EC9322 /* libRCTAliyunOSS.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
+		E0AA0063DC3B4926890AAA7C /* libRCTAnimationSwitch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 89297331AC74417DB0A87C4E /* libRCTAnimationSwitch.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -200,6 +200,8 @@
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		BAF94D293B724171B762C9D0 /* libRCTVideo.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTVideo.a; sourceTree = "<group>"; };
+		A724AFCD1E6942A7B8CF5F40 /* RCTAnimationSwitch.xcodeproj */ = {isa = PBXFileReference; name = "RCTAnimationSwitch.xcodeproj"; path = "../node_modules/react-native-animation-switch/ios/RCTAnimationSwitch.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		89297331AC74417DB0A87C4E /* libRCTAnimationSwitch.a */ = {isa = PBXFileReference; name = "libRCTAnimationSwitch.a"; path = "libRCTAnimationSwitch.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -229,6 +231,7 @@
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				7AE8893CFFB3451EA52FF4EE /* libRCTAliyunOSS.a in Frameworks */,
 				291384A32160445FA563CE1C /* libRCTVideo.a in Frameworks */,
+				E0AA0063DC3B4926890AAA7C /* libRCTAnimationSwitch.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -384,6 +387,7 @@
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
 				10A4FE9F574941199C66EB9D /* RCTVideo.xcodeproj */,
 				3B333B6634B8444FB7F7F1C3 /* RCTAliyunOSS.xcodeproj */,
+				A724AFCD1E6942A7B8CF5F40 /* RCTAnimationSwitch.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -774,6 +778,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/lab.app/lab";
@@ -790,6 +795,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -814,6 +820,7 @@
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 					"$(SRCROOT)/../node_modules/react-native-video",
 					"$(SRCROOT)/../node_modules/react-native-aliyun-oss/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-animation-switch/ios/RCTAnimationSwitch",
 				);
 				INFOPLIST_FILE = lab/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -841,6 +848,7 @@
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 					"$(SRCROOT)/../node_modules/react-native-video",
 					"$(SRCROOT)/../node_modules/react-native-aliyun-oss/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-animation-switch/ios/RCTAnimationSwitch",
 				);
 				INFOPLIST_FILE = lab/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -896,6 +904,7 @@
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 					"$(SRCROOT)/../node_modules/react-native-video",
 					"$(SRCROOT)/../node_modules/react-native-aliyun-oss/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-animation-switch/ios/RCTAnimationSwitch",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -940,6 +949,7 @@
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 					"$(SRCROOT)/../node_modules/react-native-video",
 					"$(SRCROOT)/../node_modules/react-native-aliyun-oss/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-animation-switch/ios/RCTAnimationSwitch",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;

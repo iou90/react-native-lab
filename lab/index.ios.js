@@ -1,8 +1,4 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
+'use strict';
 
 import React, { Component } from 'react';
 
@@ -11,6 +7,7 @@ import {
   Image,
   StyleSheet,
   Text,
+  TouchableHighlight,
   View
 } from 'react-native';
 
@@ -20,9 +17,12 @@ import Video from 'react-native-video';
 
 import VideoPlayer from './VideoPlayer';
 
+import AnimationSwitch from 'react-native-animation-switch';
+
 export default class lab extends Component {
   constructor(props) {
     super(props);
+    this.enbaleAnimation = false;
     AliyunOSS.enableOSSLog();
     const config = {
       AccessKey: 'I55gwdJazvvCDIKi',
@@ -96,6 +96,13 @@ export default class lab extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <TouchableHighlight
+          onPress={() => {
+            this.enbaleAnimation = !this.enbaleAnimation;
+            AnimationSwitch.setAnimationsEnabled(this.enbaleAnimation);
+          } }>
+          <Text>switch animation</Text>
+        </TouchableHighlight>
         <Text style={styles.welcome}>
           aliyun oss test
         </Text>
