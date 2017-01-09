@@ -4,8 +4,8 @@ import android.app.Application;
 import android.util.Log;
 
 import com.facebook.react.ReactApplication;
+import com.dscj.autoheightwebview.AutoHeightWebViewPackage;
 import com.brentvatne.react.ReactVideoPackage;
-import com.rnfs.RNFSPackage;
 import com.dskj.dscj.aliyunoss.aliyunossPackage;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
@@ -27,8 +27,8 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new AutoHeightWebViewPackage(),
             new ReactVideoPackage(),
-            new RNFSPackage(),
             new aliyunossPackage()
       );
     }

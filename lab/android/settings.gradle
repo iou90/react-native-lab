@@ -1,9 +1,9 @@
 rootProject.name = 'lab'
 
 include ':app'
+include ':react-native-autoheightwebview'
+project(':react-native-autoheightwebview').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-autoheightwebview/android')
 include ':react-native-video'
 project(':react-native-video').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-video/android')
-include ':react-native-fs'
-project(':react-native-fs').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-fs/android')
 include ':react-native-aliyun-oss'
 project(':react-native-aliyun-oss').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-aliyun-oss/android')
