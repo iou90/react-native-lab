@@ -1,6 +1,8 @@
 /** @providesModule VideoPlayer 
- * AppRegistry.registerComponent('dscj_app_rn', () => {
-    Playground.config(require('VideoPlayer'));
+import VideoPlayer from 'VideoPlayer'
+
+AppRegistry.registerComponent('jszgz', () => {
+    Playground.config(VideoPlayer);
     return Playground;
 });
 */
@@ -8,16 +10,14 @@
 'use strict'
 
 import React, {
-    Component,
     PropTypes
 } from 'react';
 
 import {
     Animated,
+    BackAndroid,
     Dimensions,
-    InteractionManager,
     PanResponder,
-    PixelRatio,
     Platform,
     StatusBar,
     StyleSheet,
@@ -28,13 +28,13 @@ import {
 
 import Video from 'react-native-video';
 
-// import Orientation from 'react-native-orientation';
+import ImmutableComponent from 'react-immutable-component';
 
-// import { VideoControl, VideoPlayerState } from './VideoControl';
+import Orientation from 'react-native-orientation';
 
-import NavigationBar from './NavigationBar';
+import { VideoControl, VideoPlayerState } from 'VideoControl';
 
-export default class VideoPlayer extends Component {
+export default class VideoPlayer extends ImmutableComponent {
     constructor(props) {
         super(props);
         this.seek = this.seek.bind(this);
@@ -51,49 +51,66 @@ export default class VideoPlayer extends Component {
         this.resizeAnimatedValue = new Animated.Value(0);
         this.startPlayWithFullsize = props.startPlayWithFullsize;
         this.resumeTime = 0;
-        if (Platform.OS === 'android') {
-            this.isResizingOnAndroid = false;
-        }
+        this.orientation = DeviceOrientation.Portrait;
+        this.setPanResponder();
         this.state = {
-            hideVideo: false,
-            videoHeight: 195,
+            videoHeight: this.props.height,
             isLoading: true,
-            // playerState: VideoPlayerState.Playing,
-            source: null,
-            paused: false,
+            playerState: VideoPlayerState.Playing,
+            source: props.source,
+            paused: props.paused,
             currentTime: 0,
             duration: 0,
             isHideToolBar: false,
             isLandscape: false,
-            deviceOrientation: DeviceOrientation.Portrait,
             isHd: false
+        };
+        if (Platform.OS === 'android') {
+            this.state.hideVideo = false;
+            this.handleAndroidBackButton = this.handleAndroidBackButton.bind(this);
+            BackAndroid.addEventListener('hardwareBackPress', this.handleAndroidBackButton);
+            Orientation.addOrientationListener(this.orientationChanged);
+            Orientation.lockToPortrait();
         }
+        this.setResizeStyle(this.state.isLandscape);
+    }
+
+    setResizeStyle(isLandscape, height = this.state.videoHeight) {
         this.resizeX = this.resizeAnimatedValue.interpolate(
             {
                 inputRange: [0, 1],
-                outputRange: !this.state.isLandscape ? [ScreenWidth, ScreenHeight] : [ScreenHeight, ScreenWidth]
-            }
-        );
-        const h = !this.props.autoSize && this.props.height ? this.props.height : this.state.videoHeight;
+                outputRange: isLandscape ? [ScreenHeight, ScreenWidth] : [ScreenWidth, ScreenHeight]
+            });
         this.resizeY = this.resizeAnimatedValue.interpolate(
             {
                 inputRange: [0, 1],
-                outputRange: !this.state.isLandscape ? [h, ScreenWidth] : [ScreenWidth, h]
-            }
-        );
+                outputRange: isLandscape ? [ScreenWidth, height] : [height, ScreenWidth]
+            });
+        if (Platform.OS === 'ios') {
+            this.rotate = this.resizeAnimatedValue.interpolate({
+                inputRange: [0, 1],
+                outputRange: isLandscape ? ['90deg', '0deg'] : ['0deg', '90deg']
+            });
+            const dy = (ScreenHeight - ScreenWidth) / 2;
+            this.translateY = this.resizeAnimatedValue.interpolate({
+                inputRange: [0, 1],
+                outputRange: isLandscape ? [dy, 0] : [0, dy]
+            });
+            const dx = -(ScreenHeight - ScreenWidth) / 2;
+            this.translateX = this.resizeAnimatedValue.interpolate({
+                inputRange: [0, 1],
+                outputRange: isLandscape ? [dx, 0] : [0, dx]
+            });
+        }
     }
 
-    componentWillMount() {
-        // Orientation.addOrientationListener(this.orientationChanged);
-        // Orientation.lockToPortrait();
-        // get the video source
-        this.setState((prevState, props) => ({ source: props.source }));
+    setPanResponder() {
         this.panResponder = PanResponder.create({
             onMoveShouldSetPanResponder: (event, gestureState) => {
                 if (this.controller && this.controller.state.isVisible) {
                     return false;
                 }
-                return Math.abs(gestureState.dx * ScreenPixelRatio) > 5;
+                return Math.abs(gestureState.dx) > 5;
             },
             onPanResponderGrant: (event, gestureState) => {
                 if (this.state.isLoading) {
@@ -102,9 +119,6 @@ export default class VideoPlayer extends Component {
                 this.setState({ paused: true });
             },
             onPanResponderRelease: (event, gestureState) => {
-                if (this.state.isLoading) {
-                    return;
-                }
                 const {
                     isLoading,
                     currentTime,
@@ -114,82 +128,75 @@ export default class VideoPlayer extends Component {
                 if (isLoading || this.state.duration <= 0) {
                     return;
                 }
-                const width = (isLandscape ? ScreenHeight : ScreenWidth) / ScreenPixelRatio;
-                const unit = duration < width ? duration / width : width / duration;
+                const width = isLandscape ? ScreenHeight : ScreenWidth;
+                const unit = duration / width;
                 const draggedSeconds = gestureState.dx * unit;
                 const currentTimeAfterDragged = currentTime + draggedSeconds > duration ? duration : currentTime + draggedSeconds < 0 ? 0 : currentTime + draggedSeconds;
                 this.player.seek(currentTimeAfterDragged);
                 this.setState({
                     paused: false,
-                    // playerState: VideoPlayerState.Playing
+                    playerState: VideoPlayerState.Playing
                 });
             }
         });
-    }
-
-    // when player setting props changed
-    componentWillReceiveProps(nextProps) {
-        if (!nextProps.source) { return; }
-        this.startPlayWithFullsize = nextProps.startPlayWithFullsize;
-        this.setState({
-            source: nextProps.source,
-            isHd: false
-        });
-    }
-
-    shouldComponentUpdate(nextProps, nextState, context) {
-        if (this.state.isLandscape !== nextState.isLandscape) {
-            const h = !this.props.autoSize && this.props.height ? this.props.height : this.state.videoHeight;
-            this.resizeX = this.resizeAnimatedValue.interpolate(
-                {
-                    inputRange: [0, 1],
-                    outputRange: !nextState.isLandscape ? [ScreenWidth, ScreenHeight] : [ScreenHeight, ScreenWidth]
-                }
-            );
-            this.resizeY = this.resizeAnimatedValue.interpolate(
-                {
-                    inputRange: [0, 1],
-                    outputRange: !nextState.isLandscape ? [h, ScreenWidth] : [ScreenWidth, h]
-                }
-            );
-        }
-        return true;
     }
 
     componentDidUpdate() {
         if (Platform.OS === 'android' && this.state.hideVideo) {
-            if (this.isResizingOnAndroid) {
-                this.setState({
-                    hideVideo: false,
-                    paused: true
-                });
-            }
-            else {
-                this.setState({
-                    hideVideo: false,
-                    // playerState: VideoPlayerState.Playing // replay
-                });
-            }
+            this.setState({
+                hideVideo: false
+            });
+        }
+    }
+
+    // when player setting props changed
+    componentWillReceiveProps(nextProps) {
+        this.setState({ paused: nextProps.paused });
+        if (this.props.source === nextProps.source && this.props.startPlayWithFullsize === this.startPlayWithFullsize) {
+            return;
+        }
+        // video source null or undefined
+        if (!nextProps.source) {
+            return;
+        }
+        this.startPlayWithFullsize = nextProps.startPlayWithFullsize;
+        this.controller.fadeOutControls();
+        this.setState({
+            source: nextProps.source,
+            playerState: VideoPlayerState.Playing,
+            isLoading: true,
+            currentTime: 0,
+            duration: 0,
+            isHd: false
+        });
+        if (Platform.OS === 'android') {
+            this.setState({ hideVideo: true });
         }
     }
 
     componentWillUnmount() {
-        Orientation.removeOrientationListener(this.orientationChanged);
-        Orientation.unlockAllOrientations();
+        if (Platform.OS === 'android') {
+            BackAndroid.removeEventListener('hardwareBackPress', this.handleAndroidBackButton);
+            Orientation.removeOrientationListener(this.orientationChanged);
+            Orientation.unlockAllOrientations();
+        }
+    }
+
+    handleAndroidBackButton() {
+        if (this.orientation === DeviceOrientation.Landscape) {
+            this.resize();
+            return true; // return true prevent navigator.pop
+        }
     }
 
     orientationChanged(orientation) {
         if (orientation === DeviceOrientation.Landscape) {
-            this.setState({
-                isHideToolBar: true,
-                deviceOrientation: DeviceOrientation.Landscape
-            });
+            this.orientation = DeviceOrientation.Landscape;
         }
         else {
-            this.setState({
-                isHideToolBar: false,
-                deviceOrientation: DeviceOrientation.Portrait
-            });
+            if (this.state.isLandscape) {
+                this.orientation = DeviceOrientation.Portrait;
+            }
         }
     }
 
@@ -197,119 +204,138 @@ export default class VideoPlayer extends Component {
         Animated.timing(
             this.resizeAnimatedValue, {
                 toValue: 1,
-                duration: enterFullScreenAnimationTime
+                duration: EnterFullScreenAnimationTime
             }
         ).start(() => {
-            this.setState(prevState => ({
-                isHideToolBar: prevState.isLandscape ? false : true,
-                isLandscape: !prevState.isLandscape
-            }));
             this.resizeAnimatedValue.setValue(0);
+            const isLandscape = !this.state.isLandscape;
+            this.setResizeStyle(isLandscape);
+            this.setState({
+                isHideToolBar: isLandscape,
+                isLandscape
+            });
+            if (Platform.OS === 'ios') {
+                if (!isLandscape) {
+                    this.handleVideoResize(false);
+                }
+            }
+            if (Platform.OS === 'android') {
+                if (isLandscape) {
+                    this.orientation = DeviceOrientation.Landscape;
+                }
+                else {
+                    this.orientation = DeviceOrientation.Portrait;
+                    this.handleVideoResize(false);
+                }
+            }
         });
     }
 
     seek(value) {
         this.player.seek(value);
-    };
+    }
 
     // play or pause
     control() {
+        this.updateVideoState(this.state.paused ? 'play' : 'pause');
         this.setState(prevState => ({
             paused: !prevState.paused,
-            // playerState: !prevState.paused ? VideoPlayerState.Paused : VideoPlayerState.Playing
+            playerState: !prevState.paused ? VideoPlayerState.Paused : VideoPlayerState.Playing
         }));
-    };
+    }
 
     replay() {
-        if (Platform.OS === 'android') {
-            this.setState({ hideVideo: true });
-        }
-        else {
-            this.player.seek(0);
-            // this.setState({ playerState: VideoPlayerState.Playing });
-        }
+        this.player.seek(0);
+        this.setState({ playerState: VideoPlayerState.Playing });
     }
 
     onProgress(data) {
+        if (this.state.playerState === VideoPlayerState.Ended) {
+            return;
+        }
         if (this.state.isLoading) {
-            return null;
+            return;
         }
         this.setState({ currentTime: data.currentTime });
-        if (Platform.OS === 'android' && data.currentTime >= this.state.duration) {
-            // this.setState({ playerState: VideoPlayerState.Ended });
-        }
-    };
+    }
 
     onLoad(data) {
-        if (this.props.autoSize) {
-            const ratio = ScreenWidth / data.naturalSize.width;
-            const h = data.naturalSize.height * ratio;
-            this.setState({
-                videoHeight: h,
-                duration: data.duration,
-                isLoading: false
-            });
-            this.resizeY = this.resizeAnimatedValue.interpolate(
-                {
-                    inputRange: [0, 1],
-                    outputRange: !this.state.isLandscape ? [h, ScreenWidth] : [ScreenWidth, h]
-                }
-            );
-        }
-        else {
-            this.setState({
-                duration: data.duration,
-                isLoading: false
-            });
-        }
         if (this.resumeTime > 0) {
-            if (Platform.OS === 'android' && this.isResizingOnAndroid) {
-                this.player.seek(this.resumeTime);
-                this.isResizingOnAndroid = false;
-                this.setState({ paused: false });
-            }
-            else {
-                this.player.seek(this.resumeTime);
-            }
+            this.player.seek(this.resumeTime);
             this.resumeTime = 0;
         }
         if (this.startPlayWithFullsize) {
             this.resize();
             this.startPlayWithFullsize = false;
         }
-    };
+        if (this.props.onVideoLoaded) {
+            this.props.onVideoLoaded(data);
+        }
+        if (this.resumeTime === 0 && this.props.lastPlayTime > 0) {
+            this.player.seek(this.props.lastPlayTime);
+        }
+        let height = data.naturalSize.height * (ScreenWidth / data.naturalSize.width);
+        height = height > ScreenHeight ? (ScreenHeight - (Platform.OS === 'android' && Platform.Version > 19 ? 64 : 44)) : height;
+        if (this.props.autoSize) {
+            this.setResizeStyle(this.state.isLandscape, height);
+            this.setState({ videoHeight: height });
+        }
+        this.setState({
+            duration: data.duration,
+            isLoading: false
+        });
+    }
 
-    onLoadStart(data) {
+    onLoadStart() {
         this.setState({ isLoading: true });
-    };
+    }
 
     onEnd() {
-        // this.setState({ playerState: VideoPlayerState.Ended });
-    };
+        this.updateVideoState('end');
+        this.setState({
+            currentTime: this.state.duration,
+            playerState: VideoPlayerState.Ended
+        });
+    }
 
     onError(error) {
-        console.log("video play error:", error);
-    };
-
-    handleFromFullScreen(isContinuePlay) {
-        this.control();
+        console.log("video player error:", error);
     }
 
     resize() {
-        this.setState({ isHideToolBar: true });
-        // if (this.state.deviceOrientation === DeviceOrientation.Portrait) {
-        //     Orientation.lockToLandscapeLeft();
-        // }
-        // else {
-        //     Orientation.lockToPortrait();
-        // }
-        this.animateResize();
+        if (Platform.OS === 'ios') {
+            if (this.orientation === DeviceOrientation.Landscape) {
+                StatusBar.setHidden(false);
+                this.orientation = DeviceOrientation.Portrait;
+                this.animateResize();
+            }
+            else {
+                this.orientation = DeviceOrientation.Landscape;
+                this.handleVideoResize(true);
+                StatusBar.setHidden(true);
+                this.animateResize();
+            }
+        }
         if (Platform.OS === 'android') {
-            this.isResizingOnAndroid = true;
-            this.resumeTime = this.state.currentTime;
-            this.setState({
-                hideVideo: true
-            });
+            this.animateResize();
+            if (this.orientation === DeviceOrientation.Portrait) {
+                this.handleVideoResize(true);
+                StatusBar.setHidden(true);
+                Orientation.lockToLandscapeLeft();
+            }
+            else {
+                StatusBar.setHidden(false);
+                Orientation.lockToPortrait();
+            }
+        }
+        this.setState({
+            isHideToolBar: true
+        });
+    }
+
+    handleVideoResize(isLandscape) {
+        if (this.props.onVideoResize) {
+            this.props.onVideoResize(isLandscape);
         }
     }
 
@@ -323,29 +349,20 @@ export default class VideoPlayer extends Component {
                 currentTime: 0,
                 duration: 0
             }));
+            if (Platform.OS === 'android') {
+                this.setState({ hideVideo: true });
+            }
         }
     }
 
-    renderToolBar() {
-        if (this.state.hideVideo) {
-            return null;
+    updateVideoState(type) {
+        if (this.props.updateVideoState) {
+            this.props.updateVideoState(this.state.currentTime, type);
         }
-        if (this.state.isHideToolBar || this.props.disableToolBar) {
-            return null;
-        }
-        if (this.props.toolBar) {
-            const ToolBar = this.props.toolBar;
-            return <ToolBar />;
-        }
-        return (
-            <NavigationBar
-                {...this.props.toolBarSettings}
-                />
-        );
     }
 
     renderVideoControl() {
-        if (this.state.hideVideo) {
+        if (Platform.OS === 'android' && this.state.hideVideo) {
             return null;
         }
         if (this.props.videoControl) {
@@ -353,27 +370,28 @@ export default class VideoPlayer extends Component {
             return <CustomVideoControl />;
         }
         return (
-            // <VideoControl
-            //     ref={controller => this.controller = controller}
-            //     state={this.state.playerState}
-            //     isLoading={this.state.isLoading}
-            //     isFullScreen={this.state.isLandscape}
-            //     isHd={this.state.isHd}
-            //     progress={this.state.currentTime}
-            //     duration={this.state.duration}
-            //     controlVideo={this.control}
-            //     seekVideo={this.seek}
-            //     replayVideo={this.replay}
-            //     resizeVideo={this.resize}
-            //     changeToHd={this.changeToHd}
-            //     {...this.videoControlStyle}
-            //     />
-            null
+            <VideoControl
+                ref={controller => this.controller = controller}
+                state={this.state.playerState}
+                isLoading={this.state.isLoading}
+                isFullScreen={this.state.isLandscape}
+                isHd={this.state.isHd}
+                enableHd={!!this.props.hdSource}
+                progress={this.state.currentTime}
+                duration={this.state.duration}
+                controlVideo={this.control}
+                seekVideo={this.seek}
+                replayVideo={this.replay}
+                resizeVideo={this.resize}
+                changeToHd={this.changeToHd}
+                title={this.props.title}
+                {...this.props.videoControlStyle}
+                {...this.props.videoControlIcons} />
         );
     }
 
     renderVideo() {
-        if (this.state.hideVideo) {
+        if (Platform.OS === 'android' && this.state.hideVideo) {
             return null;
         }
         if (this.state.source) {
@@ -389,8 +407,7 @@ export default class VideoPlayer extends Component {
                     onLoad={this.onLoad}
                     onLoadStart={this.onLoadStart}
                     onProgress={this.onProgress}
-                    onError={this.onError}
-                    />
+                    onError={this.onError} />
             );
         }
         else {
@@ -399,85 +416,49 @@ export default class VideoPlayer extends Component {
     }
 
     render() {
-        return (
-            <Animated.View
-                {...this.panResponder.panHandlers}
-                ref="container"
-                style={[
-                    Styles.container,
-                    {
-                        width: this.resizeX,
-                        height: this.resizeY
-                    }
-                ]}>
-                {this.renderToolBar()}
-                {this.renderVideo()}
-                {this.renderVideoControl()}
-            </Animated.View >
-        );
+        if (Platform.OS === 'ios') {
+            return (
+                <Animated.View
+                    {...this.panResponder.panHandlers}
+                    ref="container"
+                    style={[
+                        Styles.container,
+                        this.props.containerStyle, {
+                            zIndex: 1,
+                            transform: [
+                                { translateX: this.translateX },
+                                { translateY: this.translateY },
+                                { rotate: this.rotate },
+                            ],
+                            width: this.resizeX,
+                            height: this.resizeY
+                        }]}>
+                    {this.renderVideo()}
+                    {this.renderVideoControl()}
+                </Animated.View>
+            );
+        }
+        else if (Platform.OS === 'android') {
+            return (
+                <Animated.View
+                    {...this.panResponder.panHandlers}
+                    ref="container"
+                    style={[
+                        Styles.container,
+                        this.props.containerStyle,
+                        {
+                            zIndex: 1,
+                            width: this.resizeX,
+                            height: this.resizeY
+                        },
+                    ]}>
+                    {this.renderVideo()}
+                    {this.renderVideoControl()}
+                </Animated.View>
+            );
+        }
     }
 }
-
-VideoPlayer.propTypes = {
-    source: PropTypes.any.isRequired,
-    resizeMode: PropTypes.string, // cover or contain, cover by default 
-    hdSource: PropTypes.any,
-    autoSize: PropTypes.bool,
-    height: PropTypes.number,
-    videoControlStyle: PropTypes.object, // style default videoControl
-    videoControl: PropTypes.func, // custom video control
-    toolBarSettings: PropTypes.object, // config default toolBar
-    toolBar: PropTypes.func, //custom toolBar
-    disableToolBar: PropTypes.bool,
-    startPlayWithFullsize: PropTypes.bool
-}
-
-VideoPlayer.defaultProps = {
-    resizeMode: 'cover',
-    autoSize: true,
-    height: NaN
-}
-
-class TestVideoPlayer extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            source: { uri: 'http://dscj-app.oss-cn-qingdao.aliyuncs.com/video/20160908182041.mp4' },
-            hdSource: { uri: 'http://dscj-app.oss-cn-qingdao.aliyuncs.com/video/20160908182041_640.mp4' },
-            startPlayWithFullsize: false
-        };
-    }
-
-    render() {
-        return (
-            <View>
-                <StatusBar hidden={true} />
-                <VideoPlayer
-                    autoSize={false}
-                    height={200}
-                    startPlayWithFullsize={this.state.startPlayWithFullsize}
-                    source={this.state.source}
-                    hdSource={this.state.hdSource}
-                    />
-                <TouchableOpacity onPress={() => {
-                    this.setState({
-                        source: { uri: 'http://dscj-test.oss-cn-hangzhou.aliyuncs.com/video_640/test-demo-min.mp4' },
-                        hdSource: null,
-                        startPlayWithFullsize: true
-                    });
-                } }>
-                    <Text>change</Text>
-                </TouchableOpacity>
-            </View >
-        );
-    }
-}
-
-VideoPlayer.test = (define) => {
-    define('VideoPlayer', () => <TestVideoPlayer />);
-}
-
-module.exports = VideoPlayer;
 
 const DeviceOrientation = {
     Landscape: 'LANDSCAPE',
@@ -488,16 +469,84 @@ const ScreenWidth = Dimensions.get('window').width;
 
 const ScreenHeight = Dimensions.get('window').height;
 
-const ScreenPixelRatio = PixelRatio.get();
+const EnterFullScreenAnimationTime = Platform.OS === 'android' ? 155 : 555;
 
-const enterFullScreenAnimationTime = 55;
+VideoPlayer.propTypes = {
+    paused: PropTypes.bool,
+    title: PropTypes.string,
+    lastPlayTime: PropTypes.number,
+    containerStyle: View.propTypes.style,
+    source: PropTypes.any,
+    resizeMode: PropTypes.string, // cover or contain, cover by default 
+    hdSource: PropTypes.any,
+    autoSize: PropTypes.bool,
+    height: PropTypes.number,
+    videoControlStyle: View.propTypes.style, // default videoControl style 
+    videoControlIcons: PropTypes.object, // default videoControl icons 
+    videoControl: PropTypes.func, // custom video control
+    startPlayWithFullsize: PropTypes.bool,
+    onVideoLoaded: PropTypes.func,
+    onVideoResize: PropTypes.func,
+    updateVideoState: PropTypes.func
+}
+
+VideoPlayer.defaultProps = {
+    paused: false,
+    resizeMode: 'cover',
+    autoSize: true,
+    height: ScreenWidth / 16 * 9
+}
+
+class TestVideoPlayer extends ImmutableComponent {
+    constructor(props) {
+        super(props);
+        this.state = {
+            hdSource: { uri: 'http://dscj-app.oss-cn-qingdao.aliyuncs.com/video/20160908182041_640.mp4' },
+            source: { uri: 'http://dscj-test.oss-cn-hangzhou.aliyuncs.com/video_640/test-demo-min.mp4' },
+            startPlayWithFullsize: false
+        };
+    }
+
+    render() {
+        return (
+            <View>
+                <VideoPlayer
+                    title='test'
+                    autoSize={true}
+                    height={200}
+                    startPlayWithFullsize={this.state.startPlayWithFullsize}
+                    source={this.state.source}
+                    hdSource={this.state.hdSource}
+                    videoControlIcons={{
+                        quitFullscreenIcon: require('./img/back.png'),
+                        pauseIcon: require('./img/pause.png'),
+                        playIcon: require('./img/play.png'),
+                        replayIcon: require('./img/replay.png'),
+                        fullscreenIcon: require('./img/fullscreen.png'),
+                        exitFullscreenIcon: require('./img/exitFullscreen.png')
+                    }} />
+                <TouchableOpacity onPress={() => {
+                    this.setState({
+                        source: { uri: 'http://dscj-test.oss-cn-hangzhou.aliyuncs.com/video_640/test-demo-min.mp4' },
+                        hdSource: null,
+                        startPlayWithFullsize: true
+                    });
+                }}>
+                    <Text>change</Text>
+                </TouchableOpacity>
+            </View>
+        );
+    }
+}
+
+VideoPlayer.test = (define) => {
+    define('VideoPlayer', () => <TestVideoPlayer />);
+}
 
 const Styles = StyleSheet.create({
     container: {
-        zIndex: 1,
         backgroundColor: 'black',
-        justifyContent: 'flex-start',
-        alignItems: 'center'
+        justifyContent: 'flex-start'
     },
     player: {
         position: 'absolute',
@@ -507,4 +556,3 @@ const Styles = StyleSheet.create({
         right: 0,
     }
 });
-
