@@ -1,7 +1,9 @@
 /** @providesModule VideoPlayer 
-import VideoPlayer from 'VideoPlayer'
+import Playground from 'Playground';
+ 
+import VideoPlayer from 'VideoPlayer';
 
-AppRegistry.registerComponent('jszgz', () => {
+AppRegistry.registerComponent('reactNativeLab', () => {
     Playground.config(VideoPlayer);
     return Playground;
 });
@@ -17,6 +19,7 @@ import {
     Animated,
     BackAndroid,
     Dimensions,
+    Image,
     PanResponder,
     Platform,
     StatusBar,
@@ -66,7 +69,6 @@ export default class VideoPlayer extends ImmutableComponent {
             isHd: false
         };
         if (Platform.OS === 'android') {
-            // this.state.hideVideo = false;
             this.handleAndroidBackButton = this.handleAndroidBackButton.bind(this);
             BackAndroid.addEventListener('hardwareBackPress', this.handleAndroidBackButton);
             Orientation.addOrientationListener(this.orientationChanged);
@@ -141,25 +143,19 @@ export default class VideoPlayer extends ImmutableComponent {
         });
     }
 
-    componentDidUpdate() {
-        // if (Platform.OS === 'android' && this.state.hideVideo) {
-        //     this.setState({
-        //         hideVideo: false
-        //     });
-        // }
-    }
-
     // when player setting props changed
     componentWillReceiveProps(nextProps) {
         this.setState({ paused: nextProps.paused });
-        if (this.props.source === nextProps.source && this.props.startPlayWithFullsize === this.startPlayWithFullsize) {
+        if (this.props.source === nextProps.source && this.props.startPlayWithFullsize === nextProps.startPlayWithFullsize) {
             return;
         }
         // video source null or undefined
         if (!nextProps.source) {
             return;
         }
-        this.startPlayWithFullsize = nextProps.startPlayWithFullsize;
+        if (this.props.startPlayWithFullsize !== nextProps.startPlayWithFullsize) {
+            this.startPlayWithFullsize = nextProps.startPlayWithFullsize;
+        }
         this.controller.fadeOutControls();
         this.setState({
             source: nextProps.source,
@@ -169,9 +165,10 @@ export default class VideoPlayer extends ImmutableComponent {
             duration: 0,
             isHd: false
         });
-        // if (Platform.OS === 'android') {
-        //     this.setState({ hideVideo: true });
-        // }
+        if (nextProps.height && !nextProps.autoSize) {
+            this.setResizeStyle(this.state.isLandscape, nextProps.height);
+            this.setState({ videoHeight: nextProps.height });
+        }
     }
 
     componentWillUnmount() {
@@ -349,9 +346,6 @@ export default class VideoPlayer extends ImmutableComponent {
                 currentTime: 0,
                 duration: 0
             }));
-            // if (Platform.OS === 'android') {
-            //     this.setState({ hideVideo: true });
-            // }
         }
     }
 
@@ -362,9 +356,6 @@ export default class VideoPlayer extends ImmutableComponent {
     }
 
     renderVideoControl() {
-        // if (Platform.OS === 'android' && this.state.hideVideo) {
-        //     return null;
-        // }
         if (this.props.videoControl) {
             const CustomVideoControl = this.props.videoControl;
             return <CustomVideoControl />;
@@ -372,6 +363,7 @@ export default class VideoPlayer extends ImmutableComponent {
         return (
             <VideoControl
                 ref={controller => this.controller = controller}
+                isDisplayFullScreenButton={this.props.isDisplayFullScreenButton}
                 state={this.state.playerState}
                 isLoading={this.state.isLoading}
                 isFullScreen={this.state.isLandscape}
@@ -391,9 +383,6 @@ export default class VideoPlayer extends ImmutableComponent {
     }
 
     renderVideo() {
-        // if (Platform.OS === 'android' && this.state.hideVideo) {
-        //     return null;
-        // }
         if (this.state.source) {
             return (
                 <Video
@@ -434,6 +423,11 @@ export default class VideoPlayer extends ImmutableComponent {
                             height: this.resizeY
                         }]}>
                     {this.renderVideo()}
+                    {
+                        this.props.audioBackgroundImage ?
+                            <Image style={{ height: this.props.height, width: ScreenWidth }}
+                                source={this.props.audioBackgroundImage} /> : null
+                    }
                     {this.renderVideoControl()}
                 </Animated.View>
             );
@@ -453,6 +447,11 @@ export default class VideoPlayer extends ImmutableComponent {
                         },
                     ]}>
                     {this.renderVideo()}
+                    {
+                        this.props.audioBackgroundImage ?
+                            <Image style={{ height: this.props.height, width: ScreenWidth }}
+                                source={this.props.audioBackgroundImage} /> : null
+                    }
                     {this.renderVideoControl()}
                 </Animated.View>
             );
@@ -487,10 +486,13 @@ VideoPlayer.propTypes = {
     startPlayWithFullsize: PropTypes.bool,
     onVideoLoaded: PropTypes.func,
     onVideoResize: PropTypes.func,
-    updateVideoState: PropTypes.func
+    updateVideoState: PropTypes.func,
+    isDisplayFullScreenButton: PropTypes.bool,
+    audioBackgroundImage: Image.propTypes.source
 }
 
 VideoPlayer.defaultProps = {
+    isDisplayFullScreenButton: true,
     paused: false,
     resizeMode: 'cover',
     autoSize: true,
@@ -501,6 +503,10 @@ class TestVideoPlayer extends ImmutableComponent {
     constructor(props) {
         super(props);
         this.state = {
+            audioBackgroundImage: null,
+            isDisplayFullScreenButton: true,
+            autoSize: true,
+            height: 200,
             hdSource: { uri: 'http://dscj-app.oss-cn-qingdao.aliyuncs.com/video/20160908182041_640.mp4' },
             source: { uri: 'http://dscj-test.oss-cn-hangzhou.aliyuncs.com/video_640/test-demo-min.mp4' },
             startPlayWithFullsize: false
@@ -512,27 +518,44 @@ class TestVideoPlayer extends ImmutableComponent {
             <View>
                 <VideoPlayer
                     title='test'
-                    autoSize={true}
-                    height={200}
+                    audioBackgroundImage={this.state.audioBackgroundImage}
+                    isDisplayFullScreenButton={this.state.isDisplayFullScreenButton}
+                    autoSize={this.state.autoSize}
+                    height={this.state.height}
                     startPlayWithFullsize={this.state.startPlayWithFullsize}
                     source={this.state.source}
                     hdSource={this.state.hdSource}
                     videoControlIcons={{
-                        quitFullscreenIcon: require('../img/back.png'),
-                        pauseIcon: require('../img/pause.png'),
-                        playIcon: require('../img/play.png'),
-                        replayIcon: require('../img/replay.png'),
-                        fullscreenIcon: require('../img/fullscreen.png'),
-                        exitFullscreenIcon: require('../img/exitFullscreen.png')
+                        quitFullscreenIcon: require('./img/back.png'),
+                        pauseIcon: require('./img/pause.png'),
+                        playIcon: require('./img/play.png'),
+                        replayIcon: require('./img/replay.png'),
+                        fullscreenIcon: require('./img/fullscreen.png'),
+                        exitFullscreenIcon: require('./img/exitFullscreen.png')
                     }} />
                 <TouchableOpacity onPress={() => {
                     this.setState({
                         source: { uri: 'http://dscj-test.oss-cn-hangzhou.aliyuncs.com/video_640/test-demo-min.mp4' },
+                        isDisplayFullScreenButton: true,
                         hdSource: null,
+                        audioBackgroundImage: null,
                         startPlayWithFullsize: true
                     });
                 }}>
-                    <Text>change</Text>
+                    <Text>change source & play with fullsize</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => {
+                    this.setState({
+                        source: { uri: 'http://audio.xmcdn.com/group25/M05/8E/17/wKgJMVhCyTXSuy4CAN1cppkqWic906.m4a' },
+                        //source: { uri: 'http://a.tumblr.com/tumblr_ll3por5Y3P1qjmo16o1.mp3' },
+                        autoSize: false,
+                        isDisplayFullScreenButton: false,
+                        height: 200,
+                        audioBackgroundImage: { uri: 'https://pic4.zhimg.com/80/v2-7dff9dc454a797c5ab258dde1827847b_r.jpg' },
+                        hdSource: null
+                    });
+                }}>
+                    <Text>play audio</Text>
                 </TouchableOpacity>
             </View>
         );

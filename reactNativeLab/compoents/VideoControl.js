@@ -279,11 +279,14 @@ export class VideoControl extends ImmutableComponent {
                             HD
                     </Text>
                     </TouchableOpacity>
-                    <TouchableOpacity
-                        style={Styles.resizeContainer}
-                        onPress={this.props.resizeVideo}>
-                        <Image source={this.props.isFullScreen ? this.props.exitFullscreenIcon : this.props.fullscreenIcon} />
-                    </TouchableOpacity>
+                    {
+                        this.props.isDisplayFullScreenButton ?
+                        <TouchableOpacity
+                            style={Styles.resizeContainer}
+                            onPress={this.props.resizeVideo}>
+                            <Image source={this.props.isFullScreen ? this.props.exitFullscreenIcon : this.props.fullscreenIcon} />
+                        </TouchableOpacity> : null
+                    }
                 </View>
                 <View style={Styles.onScreen}>
                     {
@@ -340,6 +343,7 @@ VideoControl.propTypes = {
 }
 
 VideoControl.defaultProps = {
+    isDisplayFullScreenButton: true,
     controlFadeOutDelayTime: 2555,
     enableHd: true,
     accentColor: 'snow',
@@ -395,12 +399,12 @@ const Styles = StyleSheet.create({
         position: 'absolute',
         bottom: 5,
         paddingLeft: 20,
+        paddingRight: 20,
         flexDirection: 'row',
         alignItems: 'center'
     },
     resizeContainer: {
         paddingLeft: 4,
-        paddingRight: 16,
         alignSelf: 'stretch',
         alignItems: 'center',
         justifyContent: 'center',
