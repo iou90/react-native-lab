@@ -2899,6 +2899,13 @@ react-addons-shallow-compare@15.0.2:
   version "15.0.2"
   resolved "http://registry.npm.taobao.org/react-addons-shallow-compare/download/react-addons-shallow-compare-15.0.2.tgz#d61242402f96840163e29206561da13175a6bf24"
 
+react-addons-shallow-compare@latest:
+  version "15.4.2"
+  resolved "http://registry.npm.taobao.org/react-addons-shallow-compare/download/react-addons-shallow-compare-15.4.2.tgz#027ffd9720e3a1e0b328dcd8fc62e214a0d174a5"
+  dependencies:
+    fbjs "^0.8.4"
+    object-assign "^4.1.0"
+
 react-clone-referenced-element@^1.0.1:
   version "1.0.1"
   resolved "http://registry.npm.taobao.org/react-clone-referenced-element/download/react-clone-referenced-element-1.0.1.tgz#2bba8c69404c5e4a944398600bcc4c941f860682"
@@ -2921,6 +2928,12 @@ react-immutable-component@^0.0.1:
   dependencies:
     react-addons-shallow-compare "15.0.2"
     style-equal "^1.0.0"
+
+react-native-snap-carousel@^2.0.2:
+  version "2.0.2"
+  resolved "http://registry.npm.taobao.org/react-native-snap-carousel/download/react-native-snap-carousel-2.0.2.tgz#eb58b0b1da156c3b0b5a6c6ca7a714ed030f4158"
+  dependencies:
+    react-addons-shallow-compare latest
 
 "react-native-video@git+https://github.com/react-native-community/react-native-video.git":
   version "1.0.0"

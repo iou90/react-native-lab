@@ -6,9 +6,9 @@ import {
 
 import Playground from 'Playground';
  
-import VideoPlayer from 'VideoPlayer';
+import PivotHeader from 'PivotHeader';
 
 AppRegistry.registerComponent('reactNativeLab', () => {
-    Playground.config(VideoPlayer);
+    Playground.config(PivotHeader);
     return Playground;
 });
