@@ -6,9 +6,9 @@ import {
 
 import Playground from 'Playground';
  
-import PivotHeader from 'PivotHeader';
+import VHallLive from './components/VHallLive';
 
 AppRegistry.registerComponent('reactNativeLab', () => {
-    Playground.config(PivotHeader);
+    Playground.config(VHallLive);
     return Playground;
 });

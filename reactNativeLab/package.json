@@ -7,12 +7,10 @@
     "test": "jest"
   },
   "dependencies": {
-    "react": "~15.4.1",
+    "react": "16.0.0-alpha.6",
     "react-immutable-component": "^0.0.1",
-    "react-native": "0.42.3",
+    "react-native": "0.44.0",
     "react-native-orientation": "git+https://github.com/iou90/react-native-orientation.git",
-    "react-native-slider": "git+https://github.com/iou90/react-native-slider.git",
-    "react-native-snap-carousel": "^2.0.2",
     "react-native-video": "git+https://github.com/react-native-community/react-native-video.git"
   },
   "devDependencies": {
