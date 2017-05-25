@@ -37,13 +37,23 @@ export default class VHallLive extends Component {
         define('VHallLive', () => <VHallLive />);
     }
 
+    componentDidMount() {
+        this.vhall.startPlay('', '', '', '');
+    }
+
     render() {
         return <View style={{
             flex: 1,
             justifyContent: 'center',
             alignItems: 'center'
         }}>
-            <VHall />
+            <VHall
+                ref={vhall => this.vhall = vhall}
+                style={{
+                    width: 300,
+                    height: 50
+                }}
+                onPlayError={error => console.log(error)} />
             <Text>
                 hey
             </Text>

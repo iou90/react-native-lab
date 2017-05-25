@@ -1,12 +1,10 @@
-'use strict'
-
 import {
-  AppRegistry
+  AppRegistry,
 } from 'react-native';
 
 import Playground from 'Playground';
  
-import VHallLive from './components/VHallLive';
+import VHallLive from './VHallLive';
 
 AppRegistry.registerComponent('reactNativeLab', () => {
     Playground.config(VHallLive);
