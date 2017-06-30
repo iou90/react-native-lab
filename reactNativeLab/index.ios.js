@@ -4,9 +4,9 @@ import {
 
 import Playground from 'Playground';
  
-import VHallLive from './VHallLive';
+import Live from 'Live';
 
 AppRegistry.registerComponent('reactNativeLab', () => {
-    Playground.config(VHallLive);
+    Playground.config(Live);
     return Playground;
 });

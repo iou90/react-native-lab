@@ -1,0 +1,339 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		37CC83211F035C9300F878AE /* RCTEasyVaas.m in Sources */ = {isa = PBXBuildFile; fileRef = 37CC83201F035C9300F878AE /* RCTEasyVaas.m */; };
+		37CC83221F035C9300F878AE /* RCTEasyVaas.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 37CC831F1F035C9300F878AE /* RCTEasyVaas.h */; };
+		37CC83371F035D2F00F878AE /* libEVMedia.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 37CC83331F035D2F00F878AE /* libEVMedia.a */; };
+		37CC83391F035D2F00F878AE /* libEVSDKBase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 37CC83351F035D2F00F878AE /* libEVSDKBase.a */; };
+		37CC833B1F035DD600F878AE /* RCTEasyVaasManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 37CC833A1F035DD600F878AE /* RCTEasyVaasManager.m */; };
+		37F2638B1F03BAAD0020BC2E /* AgoraRtcEngineKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37F263801F03BAAD0020BC2E /* AgoraRtcEngineKit.framework */; };
+		37F2638C1F03BAAD0020BC2E /* EVSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37F263811F03BAAD0020BC2E /* EVSocket.framework */; };
+		37F2638D1F03BAAD0020BC2E /* videoprp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37F263821F03BAAD0020BC2E /* videoprp.framework */; };
+		37F2638E1F03BAAD0020BC2E /* libEVMessage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 37F2638A1F03BAAD0020BC2E /* libEVMessage.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		37CC831A1F035C9300F878AE /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+				37CC83221F035C9300F878AE /* RCTEasyVaas.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		37CC831C1F035C9300F878AE /* libRCTEasyVaas.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRCTEasyVaas.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		37CC831F1F035C9300F878AE /* RCTEasyVaas.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTEasyVaas.h; sourceTree = "<group>"; };
+		37CC83201F035C9300F878AE /* RCTEasyVaas.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTEasyVaas.m; sourceTree = "<group>"; };
+		37CC832F1F035D2F00F878AE /* EVPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EVPlayer.h; sourceTree = "<group>"; };
+		37CC83301F035D2F00F878AE /* EVPlayerConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EVPlayerConfig.h; sourceTree = "<group>"; };
+		37CC83311F035D2F00F878AE /* EVSDKManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EVSDKManager.h; sourceTree = "<group>"; };
+		37CC83331F035D2F00F878AE /* libEVMedia.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libEVMedia.a; sourceTree = "<group>"; };
+		37CC83351F035D2F00F878AE /* libEVSDKBase.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libEVSDKBase.a; sourceTree = "<group>"; };
+		37CC833A1F035DD600F878AE /* RCTEasyVaasManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTEasyVaasManager.m; sourceTree = "<group>"; };
+		37F263801F03BAAD0020BC2E /* AgoraRtcEngineKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AgoraRtcEngineKit.framework; sourceTree = "<group>"; };
+		37F263811F03BAAD0020BC2E /* EVSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = EVSocket.framework; sourceTree = "<group>"; };
+		37F263821F03BAAD0020BC2E /* videoprp.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = videoprp.framework; sourceTree = "<group>"; };
+		37F263831F03BAAD0020BC2E /* EVMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EVMessage.h; sourceTree = "<group>"; };
+		37F263841F03BAAD0020BC2E /* EVMessageConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EVMessageConfig.h; sourceTree = "<group>"; };
+		37F263851F03BAAD0020BC2E /* EVMessageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EVMessageManager.h; sourceTree = "<group>"; };
+		37F263861F03BAAD0020BC2E /* EVMessageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EVMessageModel.h; sourceTree = "<group>"; };
+		37F263871F03BAAD0020BC2E /* EVMessageProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EVMessageProtocol.h; sourceTree = "<group>"; };
+		37F263881F03BAAD0020BC2E /* EVStreamer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EVStreamer.h; sourceTree = "<group>"; };
+		37F263891F03BAAD0020BC2E /* EVStreamerConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EVStreamerConfig.h; sourceTree = "<group>"; };
+		37F2638A1F03BAAD0020BC2E /* libEVMessage.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libEVMessage.a; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		37CC83191F035C9300F878AE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				37F2638B1F03BAAD0020BC2E /* AgoraRtcEngineKit.framework in Frameworks */,
+				37CC83391F035D2F00F878AE /* libEVSDKBase.a in Frameworks */,
+				37F2638E1F03BAAD0020BC2E /* libEVMessage.a in Frameworks */,
+				37F2638C1F03BAAD0020BC2E /* EVSocket.framework in Frameworks */,
+				37CC83371F035D2F00F878AE /* libEVMedia.a in Frameworks */,
+				37F2638D1F03BAAD0020BC2E /* videoprp.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		37CC83131F035C9300F878AE = {
+			isa = PBXGroup;
+			children = (
+				37CC83291F035D2F00F878AE /* EasyVaasSDK */,
+				37CC831E1F035C9300F878AE /* RCTEasyVaas */,
+				37CC831D1F035C9300F878AE /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		37CC831D1F035C9300F878AE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				37CC831C1F035C9300F878AE /* libRCTEasyVaas.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		37CC831E1F035C9300F878AE /* RCTEasyVaas */ = {
+			isa = PBXGroup;
+			children = (
+				37CC831F1F035C9300F878AE /* RCTEasyVaas.h */,
+				37CC83201F035C9300F878AE /* RCTEasyVaas.m */,
+				37CC833A1F035DD600F878AE /* RCTEasyVaasManager.m */,
+			);
+			path = RCTEasyVaas;
+			sourceTree = "<group>";
+		};
+		37CC83291F035D2F00F878AE /* EasyVaasSDK */ = {
+			isa = PBXGroup;
+			children = (
+				37F263801F03BAAD0020BC2E /* AgoraRtcEngineKit.framework */,
+				37F263811F03BAAD0020BC2E /* EVSocket.framework */,
+				37F263821F03BAAD0020BC2E /* videoprp.framework */,
+				37F263831F03BAAD0020BC2E /* EVMessage.h */,
+				37F263841F03BAAD0020BC2E /* EVMessageConfig.h */,
+				37F263851F03BAAD0020BC2E /* EVMessageManager.h */,
+				37F263861F03BAAD0020BC2E /* EVMessageModel.h */,
+				37F263871F03BAAD0020BC2E /* EVMessageProtocol.h */,
+				37F263881F03BAAD0020BC2E /* EVStreamer.h */,
+				37F263891F03BAAD0020BC2E /* EVStreamerConfig.h */,
+				37F2638A1F03BAAD0020BC2E /* libEVMessage.a */,
+				37CC832F1F035D2F00F878AE /* EVPlayer.h */,
+				37CC83301F035D2F00F878AE /* EVPlayerConfig.h */,
+				37CC83311F035D2F00F878AE /* EVSDKManager.h */,
+				37CC83331F035D2F00F878AE /* libEVMedia.a */,
+				37CC83351F035D2F00F878AE /* libEVSDKBase.a */,
+			);
+			path = EasyVaasSDK;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		37CC831B1F035C9300F878AE /* RCTEasyVaas */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 37CC83251F035C9300F878AE /* Build configuration list for PBXNativeTarget "RCTEasyVaas" */;
+			buildPhases = (
+				37CC83181F035C9300F878AE /* Sources */,
+				37CC83191F035C9300F878AE /* Frameworks */,
+				37CC831A1F035C9300F878AE /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RCTEasyVaas;
+			productName = RCTEasyVaas;
+			productReference = 37CC831C1F035C9300F878AE /* libRCTEasyVaas.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		37CC83141F035C9300F878AE /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = iou90;
+				TargetAttributes = {
+					37CC831B1F035C9300F878AE = {
+						CreatedOnToolsVersion = 8.3.3;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 37CC83171F035C9300F878AE /* Build configuration list for PBXProject "RCTEasyVaas" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 37CC83131F035C9300F878AE;
+			productRefGroup = 37CC831D1F035C9300F878AE /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				37CC831B1F035C9300F878AE /* RCTEasyVaas */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		37CC83181F035C9300F878AE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				37CC833B1F035DD600F878AE /* RCTEasyVaasManager.m in Sources */,
+				37CC83211F035C9300F878AE /* RCTEasyVaas.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		37CC83231F035C9300F878AE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		37CC83241F035C9300F878AE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		37CC83261F035C9300F878AE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/EasyVaasSDK",
+				);
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/../../react-native/React/**";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/EasyVaasSDK",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		37CC83271F035C9300F878AE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/EasyVaasSDK",
+				);
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/../../react-native/React/**";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/EasyVaasSDK",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		37CC83171F035C9300F878AE /* Build configuration list for PBXProject "RCTEasyVaas" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				37CC83231F035C9300F878AE /* Debug */,
+				37CC83241F035C9300F878AE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		37CC83251F035C9300F878AE /* Build configuration list for PBXNativeTarget "RCTEasyVaas" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				37CC83261F035C9300F878AE /* Debug */,
+				37CC83271F035C9300F878AE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 37CC83141F035C9300F878AE /* Project object */;
+}
